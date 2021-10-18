@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/61e760b0d4.js" crossorigin="anonymous"></script>
+    <script src="main.js" defer></script>
+    
+    <title>Szukaj bezpłatne literatury</title>
+</head>
+
+<body>
+    <main class="container">
+        <section class="my-5">
+            <h1 >Kliknij w przycisk aby dowiedzieć się więcej</h1>
+            <nav class="d-flex">
+                <div id="navigation" class="btn-group" role="group" aria-label="Basic example">
+                    <button class="btn btn-info me-1" id="books" value="books">Utwory</button>
+                    <button class="btn btn-info me-1" id="kinds" value="kinds">Rodzaje</button>
+                    <button class="btn btn-info me-1" id="genres" value="genres">Gatunki</button>
+                    <button class="btn btn-info me-1" id="epochs" value="epochs">Epoki</button>
+                    <button class="btn btn-info me-1" id="authors" value="authors">Autory</button>
+                </div>
+            </nav>
+        </section>
+        <section class="mb-5">
+            <div class="input-group w-50">
+                <input class="form-control" type="text" id="searchTerm" name="searchTerm" placeholder="Zacznij pisać tu">
+                <button id="confirmSearchTerm" class="btn btn-info btn-lg">Filtruj</button>
+            </div>
+            
+        </section>
+        <section>
+            <h3>Wynik zapytania: (ilość zwróconych wierszy: <span id="iloscWierszy"></span>)</h3>
+            <nav aria-label="...">
+                <ul id="pagination" class="pagination mb-5"></ul>
+            </nav>
+            <h2 id="naglowekDanych" class="text-center"></h2>
+            <ul id="dataWrapper" class="container-sm list-group"></ul>
+        </section>
+        
+    </main>
+</body>
+
+</html>

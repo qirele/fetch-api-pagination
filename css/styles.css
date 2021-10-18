@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
+
+body {
+    font-family: 'Noto Serif', serif !important;
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color: 	 #fff4e6;
+}
+#iloscWierszy{
+    font-weight: normal;
+    color:darkgreen
+}
+
+#dataWrapper li{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+#dataWrapper li {
+    color: #be4d25;
+}
+.data-column b, .data-column em {
+    color: black;
+}
+
+
+#dataWrapper li div:last-child a{
+    font-size: larger;
+    
+}
+
+/* size of pagination buttons */
+.page-link {
+    width: 3.5rem;
+}
+
+
+.form-control:focus {
+    border-color: rgba(233, 103, 16, 0.8);
+  box-shadow: 0 0 0 4px rgba(233, 103, 16, 0.5);
+  outline: 0 none;
+}
+
