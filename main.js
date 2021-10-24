@@ -125,7 +125,6 @@ function populateDataWrapper(dataSet){
 }
 
 function generateDescription(element){
-    console.log(element);
     let kontent = "";
     if (element.title && element.author){
         kontent =  `
