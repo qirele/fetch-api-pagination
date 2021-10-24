@@ -61,13 +61,13 @@ section {
 
 /*This is modifying the btn-primary colors but you could create your own .btn-something class as well*/
 /* .btn-info {
-    background-color: #0dcaf0;
-    border-color: #0dcaf0; 
-}
-*/
+    color: #009EEA;
+} */
+
 .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-primary {
     /* background-color: #C23F00; */
     /* border-color: #C23F00; */
+    
     outline: #00a0eae5 solid 1px;
 }
 
