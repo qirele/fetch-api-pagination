@@ -168,8 +168,10 @@ $("#confirmSearchTerm").on("click", function(){
 
 document.getElementById("books").click();
 
+// replace this with 
 document.getElementById("searchTerm").addEventListener("keyup", function (event){
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter') {
         document.getElementById("confirmSearchTerm").click();
+        console.log("fired");
     }
 });
