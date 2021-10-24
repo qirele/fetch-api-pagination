@@ -25,9 +25,6 @@ for (element of fetchButtons){
             $(".szukanie").addClass('hide');
             $("#naglowekDanych").removeClass("text-end").addClass("text-center");
         }
-        
-
-
     };
 }
 
@@ -137,7 +134,7 @@ function generateDescription(element){
             </div>
             
             <div class="data-column">
-                <a target='_blank' href='${element.url.slice(0,-1)}.html' class="btn shadow" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                <a target='_blank' href='${element.url.slice(0,-1)}.html' class="btn shadow" data-toggle="tooltip" data-placement="top" title="przekierowanie na ${element.url}">
                     Czytaj
                 </a>
             </div>`;
