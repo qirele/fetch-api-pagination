@@ -125,12 +125,14 @@ function populateDataWrapper(dataSet){
 }
 
 function generateDescription(element){
+    console.log(element);
     let kontent = "";
     if (element.title && element.author){
         kontent =  `
             <div class="data-column">
                 <div class="fs-2"><span class="fs-5">Tytuł:</span> <b>${element.title}</b></div>
                 <div class="fs-5">Autor: <em><b>${element.author}</b></em></div>
+                <div class="fs-6">Gatunek: <span class="text-info">${element.genre}</span>, Epoka: <span class="text-info">${element.epoch}</span></div>
             </div>
             
             <div class="data-column">
