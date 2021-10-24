@@ -3,6 +3,7 @@ let dataWrapper = $("#dataWrapper");
 let paginationWrapper = $("#pagination");
 let fetchButtons = Array.from(document.querySelectorAll('#navigation button.btn'));
 
+
 let state = {
     'querySet': [],
     'page': 1,
@@ -10,11 +11,23 @@ let state = {
     'window': 7
 }
 
-
+let ostatniFetch;
 for (element of fetchButtons){
     element.onclick = function(e){
-        $("#naglowekDanych").html(e.target.innerHTML);
+           
         getData(e.target.value);
+        if (e.target.value === "books"){
+            $("#naglowekDanych").removeClass("text-center").addClass("text-end");
+            $("#naglowekDanych").html('<h2 class="text-center">Utwory</h2><h5>Przycisk "Czytaj" przekierowuje na <a href="https://wolnelektury.pl">wolnelektury.pl</a></h5>');
+            $(".szukanie").removeClass('hide');
+        } else {
+            $("#naglowekDanych").html(e.target.innerHTML);   
+            $(".szukanie").addClass('hide');
+            $("#naglowekDanych").removeClass("text-end").addClass("text-center");
+        }
+        
+
+
     };
 }
 
@@ -33,33 +46,13 @@ function getData(endpoint){
         state.querySet = data;
         state.page = 1;
         populateDataWrapper(data);
-        if (endpoint === "books"){
-            $("#naglowekDanych").html('Utwory dostępne na <a href="https://wolnelektury.pl">wolnelektury.pl</a>');
-        }
-        
         
     });
     
 }
 
 
-
-function generateDescription(element, idx){
-    let kontent = "";
-    if (element.title && element.author) 
-        kontent =  `
-            <div class="data-column">
-                <div class="fs-4">Tytuł: <b>${element.title}</b></div>
-                <div class="fs-4">Autor: <em>${element.author}</em></div>
-            </div>
-            <div class="data-column"><a target='_blank' href='${element.url.slice(0,-1)}.html' class="btn btn-outline-info">Czytaj</a></div>`;
-    else 
-        kontent = element.name;
-    return kontent;
-}
-
-
-// https://www.youtube.com/watch?v=mslD-bpvjiU tutorial on pagination
+// https://www.youtube.com/watch?v=mslD-bpvjiU tutorial na stronicowanie
 function paginationFc(querySet, page, rows){
     let trimStart = (page - 1) * rows;
     let trimEnd = trimStart + rows;
@@ -108,7 +101,7 @@ function pageButtons(pages, dataSet){
     paginationWrapper.append(`<li class="page-item"><button value=${nextPage} class="page page-link"><i class="fas fa-chevron-right"></i></button></li>`)
     paginationWrapper.append(`<li class="page-item"><button value=${pages} class="page page-link"><i class="fas fa-angle-double-right"></i></button></li>`)
 
-    // we only want to have active class on pages with numbers and not arrows
+    // we only want to have active class on pages with numbers and not arrows (podswietlanie numerka wybranej strony) 
     $(".page.aboba[value="+(state.page)+"]").parent().addClass("active");
 
 
@@ -119,8 +112,8 @@ function pageButtons(pages, dataSet){
         populateDataWrapper(dataSet);
     });
 
-    // show how many records has been shown
-    $("#iloscWierszy").html(dataSet.length)
+    // show how many records has just been shown
+    $("#iloscWierszy").html(dataSet.length);
 }
 
 function populateDataWrapper(dataSet){
@@ -128,27 +121,52 @@ function populateDataWrapper(dataSet){
     let data = paginationFc(dataSet, state.page, state.rows);
     
     data.querySet.forEach(function(element) {
-        let li = `<li class="list-group-item">${generateDescription(element)}</li>`;
+        let li = `<li class="list-group-item shadow mb-3 rounded-3">${generateDescription(element)}</li>`;
         dataWrapper.append(li);
-        console.log(element);
     });
     pageButtons(data.pages, dataSet);
 }
 
+function generateDescription(element){
+    let kontent = "";
+    if (element.title && element.author){
+        kontent =  `
+            <div class="data-column">
+                <div class="fs-2"><span class="fs-5">Tytuł:</span> <b>${element.title}</b></div>
+                <div class="fs-5">Autor: <em><b>${element.author}</b></em></div>
+            </div>
+            
+            <div class="data-column">
+                <a target='_blank' href='${element.url.slice(0,-1)}.html' class="btn shadow" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                    Czytaj
+                </a>
+            </div>`;
+    }
+    else {
+        kontent = element.name;
+    }
+        
+    return kontent;
+}
+
 $("#confirmSearchTerm").on("click", function(){
-    let searchTerm = $("#searchTerm").val().toLowerCase().trim();
+    // wyrzuc polskie znaki diaktryczne z stringu : https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+    let searchTerm = $("#searchTerm").val().toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\u0142/g, "l");
     let newQuerySet = [];
-    for (el of state.querySet){
-        let compare = JSON.stringify(el).toLowerCase();
+    for (el of state.querySet)
+    {
+        let compare = JSON.stringify(el).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\u0142/g, "l").toLowerCase();
         if (compare.indexOf(searchTerm) != -1){
             newQuerySet.push(el);
         }
     }
-    if (newQuerySet){ // if something matched the search term make sure to change the state.page to the first page, otherwise it stays on the previous "active" page
+    if (newQuerySet)// if something matched the search term make sure to change the state.page to the first page, otherwise it stays on the previous "active" page
+    { 
         state.page = 1;
     }
     
     populateDataWrapper(newQuerySet);
 });
 
-getData("books");
+document.getElementById("books").click();
+
