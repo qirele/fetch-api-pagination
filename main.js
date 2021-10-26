@@ -135,10 +135,13 @@ function generateDescription(element){
             </div>
             
             <div class="data-column">
-                <a target='_blank' href='${element.url.slice(0,-1)}.html' class="btn shadow" data-toggle="tooltip" data-placement="top" title="przekierowanie na ${element.url}">
+                <a target='_blank' href='${element.url}' class="btn shadow" data-toggle="tooltip" data-placement="top" title="przekierowanie na ${element.url}">
                     Czytaj
                 </a>
-            </div>`;
+            </div>`; 
+            // TODO: (KIRIL): don't add .html on the url's that don't have the same slug ()
+            // e.g. https://wolnelektury.pl/katalog/lektura/dziady-dziadow-czesci-iii-ustep.html doesn't exist
+            // but  https://wolnelektury.pl/katalog/lektura/dziady-dziadow-czesci-iii-ustep-droga-do-rosji.html exists
     }
     else {
         kontent = element.name;
